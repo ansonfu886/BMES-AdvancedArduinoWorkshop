@@ -1,3 +1,4 @@
+![7segments](image/7segmentsLED.jpg)
 ```C+
 
 /*Seven Segment Display Connection Arduino Pin  Seven Segment Pin        0   =>   a        1   =>   b        3   =>   c        4   =>   d        5   =>   e        6   =>   f        7   =>   g */
