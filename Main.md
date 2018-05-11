@@ -85,3 +85,11 @@ Seven segment displays are of two types: common anode and common cathode. The In
 #### 2.1.1 Common Cathode
 In a common cathode seven-segment display, all seven LEDs plus a dot LED have the cathodes connected to pins 2 and pin 8. To use this display, we need to connect GROUND to pin 2 and pin 8 and,  and connect +5V to the other pins to make the individual segments light up.</br> 
 ![CC](image/Common_cathode.png)
+#### 2.1.2 Common Anode
+The common anode display is the exact opposite. In a common-anode display, the positive terminal of all the eight LEDs  are connected together and then connected to pin 3 and pin 8. To turn on an individual segment, you ground one of the pins. </br>
+![CA](image/Common_cathode.png) </br>
+### 2.2 Configuration
+The seven segment are labelled a-g, with the dot being "dp," as shown in the figure below: </br>
+i[SSDnew](image/SSDnew.jpg)
+To display a particular number, you turn on the individual segments as shown in the table below: </br>
+![7d](image/7d.JPG)
