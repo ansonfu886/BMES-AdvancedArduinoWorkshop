@@ -35,7 +35,9 @@ placement from the right, starting from zero and multiplying by that digit value
 123 in binary would be: </br>
 1×26+1×25+1×24+1×23+0×22+1×21+1×20=123. </br>
 
-![binary](image/LEDBinaryCounter.jpg)
+### 1.3 LED Binary Counter
+Let's create a counter that counts in binary.
+![binary1](image/binary.JPG)
 
 ```C+
 int button = 2; //set to correct pin
@@ -73,4 +75,4 @@ presses++;
 time = millis();
 }
 ```
-
+![binary](image/LEDBinaryCounter.jpg)
