@@ -836,6 +836,8 @@ void loop() {
 
 ### 4.2 blink() and noBlink() methods
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -857,6 +859,8 @@ void loop() {
 ```
 ### 4.3 display() and noDisplay() methods
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -878,6 +882,8 @@ void loop() {
 ```
 ### 4.4 scrollDisplayLeft() and scrollDisplayRight() methods
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -924,6 +930,8 @@ void loop() {
 ```
 ### 4.5 autoscroll() method
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -959,6 +967,8 @@ void loop() {
 ```
 ### 4.6 Text Direction methods leftToRight() and rightToLeft()
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
@@ -999,6 +1009,8 @@ void loop() {
 ```
 ### 4.7 Serial Input
 ```C++
+// include the library code:
+#include <LiquidCrystal.h>
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
