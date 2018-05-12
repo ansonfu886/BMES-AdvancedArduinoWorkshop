@@ -201,7 +201,7 @@ void setup()
 
 void loop() 
 {
-swith(COUNT)
+switch(COUNT)
 { 
   case 0://when count value is zero show”0” on disp
 
@@ -453,4 +453,21 @@ void loop(){
 In this tutorial, we are going to Interface piezo buzzer or piezo speaker with Arduino UNO. A piezo buzzer is generally used to signal user in the form of tone or beep. This type of buzzer widely used in alarm, domestic gadgets or in embedded systems product to provide some kind of indication or alert.Buy designing a small circuit we can interface it easily with Arduino. We will design a small transistorized circuit and by providing high signal we can get a tone signal from the piezo buzzer.
 ![buzzer](image/Buzer.jpg)
 #### 3.1 Make some noise
+```C++
+const int buzzer = 9; //buzzer to arduino pin 9
 
+void setup(){
+ 
+  pinMode(buzzer, OUTPUT); // Set buzzer - pin 9 as an output
+
+}
+
+void loop(){
+ 
+  tone(buzzer, 1000); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+  
+}
+```
