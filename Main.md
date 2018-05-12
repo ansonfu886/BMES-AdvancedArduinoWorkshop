@@ -82,7 +82,7 @@ void count() {
 
 ## Activity 2 Seven Segment Display
 If your Arduino application only needs to display numbers, consider using a seven-segment display. The severn-segment display has seven LEDs arranged in the shape of number eight. They are easy to use and cost effective. The picture below shows a typical seven-segment display.</br>
-i[SSD](image/SSD.jpg)
+![SSD](image/SSD.jpg)
 ### 2.1 Common Anode and Common Cathode
 Seven segment displays are of two types: common anode and common cathode. The Internal structure of both types is nearly the same. The difference is the polarity of the LEDs and common terminal. </br>
 #### 2.1.1 Common Cathode
