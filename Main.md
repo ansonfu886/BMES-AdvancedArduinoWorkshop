@@ -31,9 +31,9 @@ and 1. Binary is also known as a base-2 number system.
 In the base-10 number system, each digit represents a value of 10x, where X is the digit
 placement from the right, starting from zero and multiplying by that digit value. For example,
 123 in decimal is: </br>
-1×102+3×101+3×100=123. </br>
+1×10^2+3×10^1+3×10^0=123. </br>
 123 in binary would be: </br>
-1×26+1×25+1×24+1×23+0×22+1×21+1×20=123. </br>
+1×2^6+1×2^5+1×2^4+1×2^3+0×2^2+1×2^1+1×2^0=123. </br>
 
 ### 1.3 LED Binary Counter
 Let's create a counter that counts in binary.
