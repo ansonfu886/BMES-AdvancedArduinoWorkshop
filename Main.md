@@ -392,29 +392,29 @@ void Num_Write(int number)
 ```
 #### 2.4.4 Generate Random Number with Switch
 ```C+
-int segment[8] = {2, 3, 4, 5, 6, 7, 8, 9};      //pins used
-int numbers[11][8] = { //numbers array, 1 for LOW and 0 for HIGH. Always with the .
-  {1,1,1,0,1,1,1,1}, //0
-    {1,0,0,0,0,0,1,1}, //1
-    {0,1,1,1,0,1,1,1}, //2
-    {1,1,0,1,0,1,1,1}, //3
-    {1,0,0,1,1,0,1,1}, //4
-    {1,1,0,1,1,1,0,1}, //5
-    {1,1,1,1,1,1,0,1}, //6
-    {1,0,0,0,0,1,1,1}, //7
-    {1,1,1,1,1,1,1,1}, //8
-    {1,1,0,1,1,1,1,1}, //9
+int segment[7] = {2, 3, 4, 5, 6, 7, 8, };      //pins used
+int numbers[11][7] = { //numbers array, 1 for LOW and 0 for HIGH. Always with the .
+    { 1,1,1,1,1,1,0 },    // 0
+    { 0,1,1,0,0,0,0 },    // 1
+    { 1,1,0,1,1,0,1 },    // 2
+    { 1,1,1,1,0,0,1 },    // 3
+    { 0,1,1,0,0,1,1 },    // 4
+    { 1,0,1,1,0,1,1 },    // 5
+    { 1,0,1,1,1,1,1 },    // 6
+    { 1,1,1,0,0,0,0 },    // 7
+    { 1,1,1,1,1,1,1 },    // 8
+    { 1,1,1,0,0,1,1 }};   // 9
     {0,0,0,0,0,0,0,0} //NULL
 };
 
 void setup(){
-  for(int a=0; a<8; a++){
+  for(int a=0; a<7; a++){
     pinMode(segment[a], OUTPUT);}
     pinMode(10, INPUT);  //button switch
 }
   
 void showNumber(int randNr){  //function to show the number on the 7 segment display
-  for(int a=0; a<8; a++){
+  for(int a=0; a<7; a++){
     digitalWrite(segment[a], numbers[randNr][a] == 1 ? LOW : HIGH);}  //checks the segment and returns LOW if 1 and HIGH if 0
 }
 
@@ -469,5 +469,104 @@ void loop(){
   noTone(buzzer);     // Stop sound...
   delay(1000);        // ...for 1sec
   
+}
+```
+#### 3.2 Play Melody
+```C++
+// TONES  ==========================================
+// Start by defining the relationship between 
+//       note, period, &  frequency. 
+#define  c     3830    // 261 Hz 
+#define  d     3400    // 294 Hz 
+#define  e     3038    // 329 Hz 
+#define  f     2864    // 349 Hz 
+#define  g     2550    // 392 Hz 
+#define  a     2272    // 440 Hz 
+#define  b     2028    // 493 Hz 
+#define  C     1912    // 523 Hz 
+// Define a special note, 'R', to represent a rest
+#define  R     0
+
+// SETUP ============================================
+// Set up speaker on a PWM pin (digital 9, 10 or 11)
+int speakerOut = 9;
+// Do we want debugging on serial out? 1 for yes, 0 for no
+int DEBUG = 1;
+
+void setup() { 
+  pinMode(speakerOut, OUTPUT);
+  if (DEBUG) { 
+    Serial.begin(9600); // Set serial out if we want debugging
+  } 
+}
+
+// MELODY and TIMING  =======================================
+//  melody[] is an array of notes, accompanied by beats[], 
+//  which sets each note's relative length (higher #, longer note) 
+int melody[] = {  C,  b,  g,  C,  b,   e,  R,  C,  c,  g, a, C };
+int beats[]  = { 16, 16, 16,  8,  8,  16, 32, 16, 16, 16, 8, 8 }; 
+int MAX_COUNT = sizeof(melody) / 2; // Melody length, for looping.
+
+// Set overall tempo
+long tempo = 10000;
+// Set length of pause between notes
+int pause = 1000;
+// Loop variable to increase Rest length
+int rest_count = 100; //<-BLETCHEROUS HACK; See NOTES
+
+// Initialize core variables
+int tone_ = 0;
+int beat = 0;
+long duration  = 0;
+
+// PLAY TONE  ==============================================
+// Pulse the speaker to play a tone for a particular duration
+void playTone() {
+  long elapsed_time = 0;
+  if (tone_ > 0) { // if this isn't a Rest beat, while the tone has 
+    //  played less long than 'duration', pulse speaker HIGH and LOW
+    while (elapsed_time < duration) {
+
+      digitalWrite(speakerOut,HIGH);
+      delayMicroseconds(tone_ / 2);
+
+      // DOWN
+      digitalWrite(speakerOut, LOW);
+      delayMicroseconds(tone_ / 2);
+
+      // Keep track of how long we pulsed
+      elapsed_time += (tone_);
+    } 
+  }
+  else { // Rest beat; loop times delay
+    for (int j = 0; j < rest_count; j++) { // See NOTE on rest_count
+      delayMicroseconds(duration);  
+    }                                
+  }                                 
+}
+
+// LET THE WILD RUMPUS BEGIN =============================
+void loop() {
+  // Set up a counter to pull from melody[] and beats[]
+  for (int i=0; i<MAX_COUNT; i++) {
+    tone_ = melody[i];
+    beat = beats[i];
+
+    duration = beat * tempo; // Set up timing
+
+    playTone(); 
+    // A pause between notes...
+    delayMicroseconds(pause);
+
+    if (DEBUG) { // If debugging, report loop, tone, beat, and duration
+      Serial.print(i);
+      Serial.print(":");
+      Serial.print(beat);
+      Serial.print(" ");    
+      Serial.print(tone_);
+      Serial.print(" ");
+      Serial.println(duration);
+    }
+  }
 }
 ```
