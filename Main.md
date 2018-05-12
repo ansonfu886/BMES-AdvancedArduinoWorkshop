@@ -390,64 +390,6 @@ void Num_Write(int number)
   }
 }
 ```
-#### 2.4.4 Generate Random Number with Switch
-```C+
-int segment[7] = {2, 3, 4, 5, 6, 7, 8, };      //pins used
-int numbers[11][7] = { //numbers array, 1 for LOW and 0 for HIGH. Always with the .
-    { 1,1,1,1,1,1,0 },    // 0
-    { 0,1,1,0,0,0,0 },    // 1
-    { 1,1,0,1,1,0,1 },    // 2
-    { 1,1,1,1,0,0,1 },    // 3
-    { 0,1,1,0,0,1,1 },    // 4
-    { 1,0,1,1,0,1,1 },    // 5
-    { 1,0,1,1,1,1,1 },    // 6
-    { 1,1,1,0,0,0,0 },    // 7
-    { 1,1,1,1,1,1,1 },    // 8
-    { 1,1,1,0,0,1,1 },   // 9
-    {0,0,0,0,0,0,0,0} //NULL
-};
-
-void setup(){
-  for(int a=0; a<7; a++){
-    pinMode(segment[a], OUTPUT);}
-    pinMode(10, INPUT);  //button switch
-}
-  
-void showNumber(int randNr){  //function to show the number on the 7 segment display
-  for(int a=0; a<7; a++){
-    digitalWrite(segment[a], numbers[randNr][a] == 1 ? LOW : HIGH);}  //checks the segment and returns LOW if 1 and HIGH if 0
-}
-
-void loop(){
-  int speed = 100;    //the speed at which numbers on the display will change
-  bool STOP = false;
-  while(STOP == false){   //the loop to generate random numbers
-    showNumber(random(0,9));
-      delay(100);
-        if(digitalRead(10) == HIGH){  //when the button is pressed, loop ends
-          STOP = true;}
-  }
-  
-  for(int i=0; i<random(7,15); i++){  //i was thinking it would look more appealing if the numbers would slow down
-    showNumber(random(0,9));      //rather than just quickly stopping for more dramatic effect lol
-    delay(speed);           //will slowdown in between 7 and 15 random numbers
-    speed+=100;             //each nerw random number will be generated at a slower pace
-  }
-  
-  int randomNr = random(0,9);     //this is the random number that was generated
-  
-  STOP = false;             //a new loop to blink on and off (randomNr and NULL)
-    while(STOP == false){
-      showNumber(randomNr);
-      delay(1000);
-      showNumber(10);
-      delay(1000);
-        if(digitalRead(10) == HIGH){  //why not have another go, jumps back to loop() function
-          STOP = true;}
-   }
-  delay(1000);              //after 1s offcourse
-}
-```
 
 ### Activity 3 Buzzer
 In this tutorial, we are going to Interface piezo buzzer or piezo speaker with Arduino UNO. A piezo buzzer is generally used to signal user in the form of tone or beep. This type of buzzer widely used in alarm, domestic gadgets or in embedded systems product to provide some kind of indication or alert.Buy designing a small circuit we can interface it easily with Arduino. We will design a small transistorized circuit and by providing high signal we can get a tone signal from the piezo buzzer.
@@ -566,6 +508,226 @@ void loop() {
       Serial.print(tone_);
       Serial.print(" ");
       Serial.println(duration);
+    }
+  }
+}
+```
+## Activity 4 LCD
+ Liquid Crystal Display :</br>
+![LCD](image/LCDBasebbFritz.png)
+### 4.1 "Hello World!"
+```C+
+// include the library code:
+#include <LiquidCrystal.h>
+
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+}
+
+void loop() {
+  // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0):
+  lcd.setCursor(0, 1);
+  // print the number of seconds since reset:
+  lcd.print(millis() / 1000);
+}
+```
+</br>
+
+### 4.2 blink() and noBlink() methods
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+}
+
+void loop() {
+  // Turn off the blinking cursor:
+  lcd.noBlink();
+  delay(3000);
+  // Turn on the blinking cursor:
+  lcd.blink();
+  delay(3000);
+}
+```
+### 4.3 display() and noDisplay() methods
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+}
+
+void loop() {
+  // Turn off the display:
+  lcd.noDisplay();
+  delay(500);
+  // Turn on the display:
+  lcd.display();
+  delay(500);
+}
+```
+### 4.4 scrollDisplayLeft() and scrollDisplayRight() methods
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+  delay(1000);
+}
+
+void loop() {
+  // scroll 13 positions (string length) to the left
+  // to move it offscreen left:
+  for (int positionCounter = 0; positionCounter < 13; positionCounter++) {
+    // scroll one position left:
+    lcd.scrollDisplayLeft();
+    // wait a bit:
+    delay(150);
+  }
+
+  // scroll 29 positions (string length + display length) to the right
+  // to move it offscreen right:
+  for (int positionCounter = 0; positionCounter < 29; positionCounter++) {
+    // scroll one position right:
+    lcd.scrollDisplayRight();
+    // wait a bit:
+    delay(150);
+  }
+
+  // scroll 16 positions (display length + string length) to the left
+  // to move it back to center:
+  for (int positionCounter = 0; positionCounter < 16; positionCounter++) {
+    // scroll one position left:
+    lcd.scrollDisplayLeft();
+    // wait a bit:
+    delay(150);
+  }
+
+  // delay at the end of the full loop:
+  delay(1000);
+
+}
+```
+### 4.5 autoscroll() method
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+}
+
+void loop() {
+  // set the cursor to (0,0):
+  lcd.setCursor(0, 0);
+  // print from 0 to 9:
+  for (int thisChar = 0; thisChar < 10; thisChar++) {
+    lcd.print(thisChar);
+    delay(500);
+  }
+
+  // set the cursor to (16,1):
+  lcd.setCursor(16, 1);
+  // set the display to automatically scroll:
+  lcd.autoscroll();
+  // print from 0 to 9:
+  for (int thisChar = 0; thisChar < 10; thisChar++) {
+    lcd.print(thisChar);
+    delay(500);
+  }
+  // turn off automatic scrolling
+  lcd.noAutoscroll();
+
+  // clear screen for the next loop:
+  lcd.clear();
+}
+```
+### 4.6 Text Direction methods leftToRight() and rightToLeft()
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+int thisChar = 'a';
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // turn on the cursor:
+  lcd.cursor();
+}
+
+void loop() {
+  // reverse directions at 'm':
+  if (thisChar == 'm') {
+    // go right for the next letter
+    lcd.rightToLeft();
+  }
+  // reverse again at 's':
+  if (thisChar == 's') {
+    // go left for the next letter
+    lcd.leftToRight();
+  }
+  // reset at 'z':
+  if (thisChar > 'z') {
+    // go to (0,0):
+    lcd.home();
+    // start again at 0
+    thisChar = 'a';
+  }
+  // print the character
+  lcd.write(thisChar);
+  // wait a second:
+  delay(1000);
+  // increment the letter:
+  thisChar++;
+}
+```
+### 4.7 Serial Input
+```C++
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // initialize the serial communications:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // when characters arrive over the serial port...
+  if (Serial.available()) {
+    // wait a bit for the entire message to arrive
+    delay(100);
+    // clear the screen
+    lcd.clear();
+    // read all the available characters
+    while (Serial.available() > 0) {
+      // display each character to the LCD
+      lcd.write(Serial.read());
     }
   }
 }
