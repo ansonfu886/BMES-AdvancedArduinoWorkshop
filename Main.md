@@ -390,3 +390,61 @@ void Num_Write(int number)
   }
 }
 ```
+#### 2.4.4 Generate Random Number with Switch
+```C+
+int segment[8] = {2, 3, 4, 5, 6, 7, 8, 9};      //pins used
+int numbers[11][8] = { //numbers array, 1 for LOW and 0 for HIGH. Always with the .
+  {1,1,1,0,1,1,1,1}, //0
+    {1,0,0,0,0,0,1,1}, //1
+    {0,1,1,1,0,1,1,1}, //2
+    {1,1,0,1,0,1,1,1}, //3
+    {1,0,0,1,1,0,1,1}, //4
+    {1,1,0,1,1,1,0,1}, //5
+    {1,1,1,1,1,1,0,1}, //6
+    {1,0,0,0,0,1,1,1}, //7
+    {1,1,1,1,1,1,1,1}, //8
+    {1,1,0,1,1,1,1,1}, //9
+    {0,0,0,0,0,0,0,0} //NULL
+};
+
+void setup(){
+  for(int a=0; a<8; a++){
+    pinMode(segment[a], OUTPUT);}
+    pinMode(10, INPUT);  //button switch
+}
+  
+void showNumber(int randNr){  //function to show the number on the 7 segment display
+  for(int a=0; a<8; a++){
+    digitalWrite(segment[a], numbers[randNr][a] == 1 ? LOW : HIGH);}  //checks the segment and returns LOW if 1 and HIGH if 0
+}
+
+void loop(){
+  int speed = 100;    //the speed at which numbers on the display will change
+  bool STOP = false;
+  while(STOP == false){   //the loop to generate random numbers
+    showNumber(random(0,9));
+      delay(100);
+        if(digitalRead(10) == HIGH){  //when the button is pressed, loop ends
+          STOP = true;}
+  }
+  
+  for(int i=0; i<random(7,15); i++){  //i was thinking it would look more appealing if the numbers would slow down
+    showNumber(random(0,9));      //rather than just quickly stopping for more dramatic effect lol
+    delay(speed);           //will slowdown in between 7 and 15 random numbers
+    speed+=100;             //each nerw random number will be generated at a slower pace
+  }
+  
+  int randomNr = random(0,9);     //this is the random number that was generated
+  
+  STOP = false;             //a new loop to blink on and off (randomNr and NULL)
+    while(STOP == false){
+      showNumber(randomNr);
+      delay(1000);
+      showNumber(10);
+      delay(1000);
+        if(digitalRead(10) == HIGH){  //why not have another go, jumps back to loop() function
+          STOP = true;}
+   }
+  delay(1000);              //after 1s offcourse
+}
+```
