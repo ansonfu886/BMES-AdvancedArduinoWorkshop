@@ -90,7 +90,7 @@ In a common cathode seven-segment display, all seven LEDs plus a dot LED have th
 ![CC](image/Common_cathode.png)
 #### 2.1.2 Common Anode
 The common anode display is the exact opposite. In a common-anode display, the positive terminal of all the eight LEDs  are connected together and then connected to pin 3 and pin 8. To turn on an individual segment, you ground one of the pins. </br>
-![CA](image/Common_cathode.png) </br>
+![CA](image/CommonAnode.png) </br>
 ### 2.2 Configuration
 The seven segment are labelled a-g, with the dot being "dp," as shown in the figure below: </br>
 ![SSDnew](image/SSDnew.jpg)
