@@ -95,7 +95,7 @@ The common anode display is the exact opposite. In a common-anode display, the p
 The seven segment are labelled a-g, with the dot being "dp," as shown in the figure below: </br>
 ![SSDnew](image/SSDnew.jpg)
 To display a particular number, you turn on the individual segments as shown in the table below: </br>
-![7d](image/7d.JPG)
+![7d](image/7d.JPG) </br>
 ### 2.3 Connect 7 segment display to Arduino Board
 ![7dAB](image/7segmentsLED.jpg)
 ### 2.4 Experiments
